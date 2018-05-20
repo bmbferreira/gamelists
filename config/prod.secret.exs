@@ -9,12 +9,19 @@ use Mix.Config
 # kept out of version control and might be hard to recover
 # or recreate for your teammates (or yourself later on).
 config :gamelists, GamelistsWeb.Endpoint,
-  secret_key_base: "2icHBpLJzjz+X77NtXp0eK9moijgNgLadwLHX/hHRB/APJ6KbJ2ZDUmpLVrCs+Po"
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 # Configure your database
+# config :gamelists, Gamelists.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: "postgres",
+#   password: "postgres",
+#   database: "gamelists_prod",
+#   pool_size: 15
+
 config :gamelists, Gamelists.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "gamelists_prod",
-  pool_size: 15
+  url: {:system, "DATABASE_URL"},
+  database: "",
+  ssl: true,
+  pool_size: 1
