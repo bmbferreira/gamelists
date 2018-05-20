@@ -1,5 +1,7 @@
-# Gamelists
 
+# Gamelists
+[![Coverage Status](https://coveralls.io/repos/github/ConnorRigby/safe-empty-bovine/badge.svg?branch=master)](https://coveralls.io/github/ConnorRigby/safe-empty-bovine?branch=master)
+[![CircleCI](https://circleci.com/gh/ConnorRigby/safe-empty-bovine.svg?style=svg)](https://circleci.com/gh/ConnorRigby/safe-empty-bovine)
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`

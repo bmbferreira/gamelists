@@ -6,16 +6,14 @@
 use Mix.Config
 
 # General application configuration
-config :gamelists,
-  ecto_repos: [Gamelists.Repo]
+config :gamelists, ecto_repos: [Gamelists.Repo]
 
 # Configures the endpoint
 config :gamelists, GamelistsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "h+xpRPhrMaRM37bsx2U/TunFaYw1Ffy6ctI/IHkVBmgP4RXESqmZq4Sq0BAK3hSL",
   render_errors: [view: GamelistsWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Gamelists.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Gamelists.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,4 +22,4 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

@@ -26,13 +26,13 @@ defmodule GamelistsWeb.ConnCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Gamelists.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Gamelists.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end

@@ -6,10 +6,18 @@ defmodule Gamelists.Mixfile do
       app: :gamelists,
       version: "0.0.1",
       elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      test_coverage: [tool: ExCoveralls],
+      dialyzer: [plt_add_deps: :transitive, plt_add_apps: [:ex_unit]],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       deps: deps()
     ]
   end
@@ -26,7 +34,7 @@ defmodule Gamelists.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -41,7 +49,9 @@ defmodule Gamelists.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:distillery, "~> 1.5", runtime: false}
+      {:distillery, "~> 1.5", runtime: false},
+      {:excoveralls, "~> 0.8.2", only: :test},
+      {:dialyxir, "~> 0.5.1", runtime: false}
     ]
   end
 
@@ -55,7 +65,7 @@ defmodule Gamelists.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

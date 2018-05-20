@@ -1,0 +1,93 @@
+version: 2
+jobs:
+  test:
+    parallelism: 1
+    docker:
+      - image: circleci/elixir:1.6.4
+        environment:
+          MIX_ENV: test
+      - image: circleci/postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: app_test
+          POSTGRES_PASSWORD:
+
+    working_directory: ~/app
+
+    steps:
+      - checkout
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+
+      - restore_cache:
+          keys:
+            - v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v2-mix-cache-{{ .Branch }}
+            - v2-mix-cache
+      - restore_cache:
+          keys:
+            - v2-build-cache-{{ .Branch }}
+            - v2-build-cache
+      - run: mix do deps.get, compile
+      - save_cache:
+          key: v2-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:
+          key: v2-mix-cache-{{ .Branch }}
+          paths: "deps"
+      - save_cache:
+          key: v2-mix-cache
+          paths: "deps"
+      - save_cache:
+          key: v2-build-cache-{{ .Branch }}
+          paths: "_build"
+      - save_cache:
+          key: v2-build-cache
+          paths: "_build"
+
+      - restore_cache:
+          key: v2-plt-cache-{{ checksum "mix.lock" }}
+      - run: mix dialyzer --plt
+      - save_cache:
+          key: v2-plt-cache-{{ checksum "mix.lock" }}
+          paths:
+            - ~/.mix
+            - _build
+
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run: mix dialyzer --halt-exit-status
+      - run: mix format --check-formatted
+      - run: mix coveralls.circle
+
+  deploy_prod:
+    parallelism: 1
+    docker:
+      - image: circleci/python:2.7
+
+    working_directory: ~/app
+
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "fd:c4:e9:72:5e:f0:23:c2:1c:28:cc:a1:21:70:3f:20"
+      - checkout
+      - run: sudo pip install gigalixir --ignore-installed six
+      - run: gigalixir login -e $EMAIL -p $GIGALIXIR_PASSWORD -y
+      - run: git remote add gigalixir https://$GIGALIXIR_EMAIL:$GIGALIXIR_API_KEY@git.gigalixir.com/$GIGALIXIR_APP_NAME.git
+      - run: git push -f gigalixir HEAD:refs/heads/master
+      - run: gigalixir migrate $GIGALIXIR_APP_NAME -o -oStrictHostKeyChecking=no
+
+workflows:
+  version: 2
+  test_deploy_prod:
+    jobs:
+      - test:
+          context: org-global
+      - deploy_prod:
+          context: org-global
+          filters:
+            branches:
+              only: master
+          requires:
+            - test
