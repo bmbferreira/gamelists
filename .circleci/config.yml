@@ -76,7 +76,6 @@ jobs:
       - run: gigalixir login -e $EMAIL -p $GIGALIXIR_PASSWORD -y
       - run: git remote add gigalixir https://$GIGALIXIR_EMAIL:$GIGALIXIR_API_KEY@git.gigalixir.com/$GIGALIXIR_APP_NAME.git
       - run: git push -f gigalixir HEAD:refs/heads/master
-      - run: gigalixir migrate $GIGALIXIR_APP_NAME -o -oStrictHostKeyChecking=no
 
 workflows:
   version: 2

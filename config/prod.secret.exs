@@ -24,7 +24,7 @@ config :gamelists, GamelistsWeb.Endpoint,
   # Without this line, your app will not start the web server!
   server: true,
   secret_key_base: "${SECRET_KEY_BASE}",
-  url: [host: "example.com", port: 80],
+  url: [host: "game-lists.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 config :gamelists, Gamelists.Repo,

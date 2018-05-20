@@ -36,6 +36,10 @@ end
 environment :prod do
   set include_erts: true
   set include_src: false
+  set commands: [
+    "migrate": "rel/commands/migrate.sh"
+  ]
+  set pre_start_hook: "rel/commands/migrate.sh"
   set cookie: :"K|,`{hr]{F0Lz}b})N3Q:,Qe,YaV%Y}X3B]AWEsd&fo:dA!ZEVCJ<%n$?b8Ty:ar"
 end
 
@@ -50,4 +54,3 @@ release :gamelists do
     :runtime_tools
   ]
 end
-
