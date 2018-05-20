@@ -21,7 +21,9 @@ defmodule GamelistsWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", GamelistsWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", GamelistsWeb do
+    pipe_through(:api)
+    resources("/games", GameController, only: [:index, :show])
+    resources("/systems", SystemController, only: [:index, :show])
+  end
 end

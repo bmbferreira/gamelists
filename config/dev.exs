@@ -7,7 +7,15 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :gamelists, GamelistsWeb.Endpoint,
-  http: [port: 4000],
+  http: [
+    port: 4000
+  ],
+  https: [
+    otp_app: :gamelists,
+    port: 4443,
+    keyfile: "priv/server.key",
+    certfile: "priv/server.pem"
+  ],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
