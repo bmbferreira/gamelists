@@ -1,4 +1,4 @@
-games_file = "priv/repo/game_seeds/gameboy_color/games.csv"
+games_file = "#{:code.priv_dir(:gamelists)}/repo/game_seeds/gameboy_color/games.csv"
 
 parse_date = fn(date_str) ->
   <<month_a, month_b, _, <<day_a, day_b>>, _, year :: binary>> = date_str

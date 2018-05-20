@@ -51,6 +51,7 @@ end
 release :gamelists do
   set version: current_version(:gamelists)
   set applications: [
-    :runtime_tools
+    :runtime_tools,
+    :mix
   ]
 end

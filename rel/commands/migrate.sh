@@ -1,3 +1,3 @@
 #!/bin/sh
 
-$RELEASE_ROOT_DIR/bin/myapp command Elixir.Gamelists.ReleaseTasks seed
+$RELEASE_ROOT_DIR/bin/gamelists command Elixir.Gamelists.ReleaseTasks seed

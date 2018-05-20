@@ -1,18 +1,17 @@
 defmodule Gamelists.ReleaseTasks do
   @moduledoc false
   @start_apps [
+    :mix,
     :crypto,
     :ssl,
     :postgrex,
     :ecto
   ]
 
-  def myapp, do: Application.get_application(__MODULE__)
-
-  def repos, do: Application.get_env(myapp(), :ecto_repos, [])
+  def repos, do: Application.get_env(:gamelists, :ecto_repos, [])
 
   def seed do
-    me = myapp()
+    me = :gamelists
 
     IO.puts("Loading #{me}..")
     # Load the code for myapp, but don't start it

@@ -90,10 +90,3 @@ workflows:
               only: master
           requires:
             - test
-      - deploy_prod:
-          context: game-lists-staging
-          filters:
-            branches:
-              only: staging
-          requires:
-            - test
