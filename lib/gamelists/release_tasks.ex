@@ -1,4 +1,5 @@
 defmodule Gamelists.ReleaseTasks do
+  @moduledoc false
   @start_apps [
     :crypto,
     :ssl,
@@ -62,7 +63,10 @@ defmodule Gamelists.ReleaseTasks do
 
   def priv_path_for(repo, filename) do
     app = Keyword.get(repo.config, :otp_app)
-    repo_underscore = repo |> Module.split() |> List.last() |> Macro.underscore()
+
+    repo_underscore =
+      repo |> Module.split() |> List.last() |> Macro.underscore()
+
     Path.join([priv_dir(app), repo_underscore, filename])
   end
 end

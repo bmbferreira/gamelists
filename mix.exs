@@ -51,7 +51,8 @@ defmodule Gamelists.Mixfile do
       {:cowboy, "~> 1.0"},
       {:distillery, "~> 1.5", runtime: false},
       {:excoveralls, "~> 0.8.2", only: :test},
-      {:dialyxir, "~> 0.5.1", runtime: false}
+      {:dialyxir, "~> 0.5.1", runtime: false},
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
     ]
   end
 

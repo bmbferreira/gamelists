@@ -57,6 +57,7 @@ jobs:
 
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: mix dialyzer --halt-exit-status
+      - run: mix credo --strict
       - run: mix format --check-formatted
       - run: mix coveralls.circle
 
@@ -73,7 +74,6 @@ jobs:
             - "fd:c4:e9:72:5e:f0:23:c2:1c:28:cc:a1:21:70:3f:20"
       - checkout
       - run: sudo pip install gigalixir --ignore-installed six
-      - run: gigalixir login -e $EMAIL -p $GIGALIXIR_PASSWORD -y
       - run: git remote add gigalixir https://$GIGALIXIR_EMAIL:$GIGALIXIR_API_KEY@git.gigalixir.com/$GIGALIXIR_APP_NAME.git
       - run: git push -f gigalixir HEAD:refs/heads/master
 
@@ -84,9 +84,16 @@ workflows:
       - test:
           context: org-global
       - deploy_prod:
-          context: org-global
+          context: game-lists-production
           filters:
             branches:
               only: master
+          requires:
+            - test
+      - deploy_prod:
+          context: game-lists-staging
+          filters:
+            branches:
+              only: staging
           requires:
             - test

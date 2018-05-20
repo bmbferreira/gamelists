@@ -11,7 +11,8 @@ config :gamelists, ecto_repos: [Gamelists.Repo]
 # Configures the endpoint
 config :gamelists, GamelistsWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "h+xpRPhrMaRM37bsx2U/TunFaYw1Ffy6ctI/IHkVBmgP4RXESqmZq4Sq0BAK3hSL",
+  secret_key_base:
+    "h+xpRPhrMaRM37bsx2U/TunFaYw1Ffy6ctI/IHkVBmgP4RXESqmZq4Sq0BAK3hSL",
   render_errors: [view: GamelistsWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Gamelists.PubSub, adapter: Phoenix.PubSub.PG2]
 

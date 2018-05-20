@@ -1,4 +1,5 @@
 defmodule Gamelists.Application do
+  @moduledoc false
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html
@@ -12,8 +13,6 @@ defmodule Gamelists.Application do
       supervisor(Gamelists.Repo, []),
       # Start the endpoint when the application starts
       supervisor(GamelistsWeb.Endpoint, [])
-      # Start your own worker by calling: Gamelists.Worker.start_link(arg1, arg2, arg3)
-      # worker(Gamelists.Worker, [arg1, arg2, arg3]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
