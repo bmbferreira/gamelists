@@ -1,13 +1,6 @@
 defmodule GamelistsWeb.GameControllerTest do
   use GamelistsWeb.ConnCase
 
-  alias Gamelists.Games
-  alias Gamelists.Games.Game
-
-  @create_attrs %{}
-  @update_attrs %{}
-  @invalid_attrs %{}
-
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end

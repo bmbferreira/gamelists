@@ -1,7 +1,6 @@
 defmodule GamelistsWeb.SystemController do
   use GamelistsWeb, :controller
   alias Gamelists.Games
-  alias Gamelists.Games.Game
 
   action_fallback(GamelistsWeb.FallbackController)
 

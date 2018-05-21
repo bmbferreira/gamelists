@@ -21,3 +21,7 @@ config :gamelists, Gamelists.Repo,
   database: "",
   ssl: true,
   pool_size: 1
+
+config :gamelists,
+  issuer: "gamelists",
+  secret_key: "${SECRET_KEY_BASE}"

@@ -13,6 +13,7 @@ defmodule Gamelists.Mixfile do
       test_coverage: [tool: ExCoveralls],
       dialyzer: [plt_add_deps: :transitive, plt_add_apps: [:ex_unit]],
       preferred_cli_env: [
+        alltest: :test,
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
@@ -41,6 +42,7 @@ defmodule Gamelists.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:plug, "~> 1.5.1"},
       {:phoenix, "~> 1.3.2"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
@@ -69,7 +71,13 @@ defmodule Gamelists.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      alltest: [
+        "format --check-formatted",
+        "credo --strict",
+        "dialyzer",
+        "test"
+      ]
     ]
   end
 end
